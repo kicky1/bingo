@@ -12,7 +12,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@next/swc-win32-x64-msvc": "^14.2.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.9.2",
     "@vercel/postgres": "^0.8.0",
