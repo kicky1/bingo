@@ -8,6 +8,7 @@ import {
   serial,
   timestamp,
   varchar,
+  boolean
 } from "drizzle-orm/pg-core";
 
 /**
@@ -18,11 +19,12 @@ import {
  */
 export const createTable = pgTableCreator((name) => `bingo_${name}`);
 
-export const posts = createTable(
-  "post",
+export const bingoCards = createTable(
+  "bingoCard",
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
+    checked: boolean("checked").default(false),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),

@@ -4,16 +4,15 @@ export const dynamic ="force-dynamic";
 
 export default async function HomePage() {
 
-  const posts = await db.query.posts.findMany();
+  const bingoCards = await db.query.bingoCards.findMany();
 
-  console.log(posts)
+  console.log(bingoCards)
 
   return (
     <main className="flex min-h-screen flex-col items-center mt-4">
-      {posts.map((post) => (
-        <div key={post.id} className="p-4 border rounded-lg mt-2">
-          <h2>{post.name}</h2>
-          <p>{post.createdAt.toString()}</p>
+      {bingoCards.map((bingoCard) => (
+        <div key={bingoCard.id} className="p-4 border rounded-lg mt-2">
+          <h2>{bingoCard.name}</h2>
         </div>
       ))}
     </main>
