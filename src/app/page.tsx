@@ -1,4 +1,5 @@
 import BingoCards from "~/components/BingoCards";
+export const dynamic ="force-dynamic";
 
 export default async function HomePage() {
   return (
