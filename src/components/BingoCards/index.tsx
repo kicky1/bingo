@@ -6,7 +6,7 @@ import api from "~/utils/api";
 import { getQueryClient } from "~/lib/query";
 import { useGetUsersChoice } from "~/actions/get-bingocards";
 
-export const dynamic ="force-dynamic";
+
 
 export default function BingoCards() {
     const queryClient = getQueryClient()
@@ -24,8 +24,6 @@ export default function BingoCards() {
 
     if (isLoading) return <div>Loading...</div>
  
-    console.log(data)   
-
     return (
         <>
             {data?.map((card: any) => (
