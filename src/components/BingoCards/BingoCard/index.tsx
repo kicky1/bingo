@@ -7,6 +7,7 @@ import { Card, CardHeader } from "~/components/ui/card";
 
 export default function BingoCard({card} : any) {
     const queryClient = getQueryClient()
+
     const mutation = useMutation({
         mutationFn: (card: any) => {
           return api.post('/bingoCards', JSON.stringify({ id: card.id, checked: !card.checked }))
