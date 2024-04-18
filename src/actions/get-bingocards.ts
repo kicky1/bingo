@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
+import { TBingoCard } from "~/types/bingo.type"
 import api from "~/utils/api"
 
 
-const getBingoCards = async (): Promise<any> => {
+const getBingoCards = async (): Promise<TBingoCard[]> => {
     const { data } = await api.get('/bingoCards')
     return data
   }

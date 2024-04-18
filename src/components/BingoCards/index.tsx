@@ -3,21 +3,18 @@
 import { useGetUsersChoice } from "~/actions/get-bingocards";
 import BingoCard from "./BingoCard";
 import { useEffect } from "react";
-import { bingoCheck } from "~/lib/bingoCheck";
+import { useBingoCheck } from "~/hooks/useBingoCheck";
 import { useBingoStore } from "~/zustand/stores/useBingoStore";
 import { useToast } from "~/components/ui/use-toast"
-import { Button } from "../ui/button";
-
+import { TBingoCard } from "~/types/bingo.type";
 
 export default function BingoCards() {
     const { data, isLoading } = useGetUsersChoice();
     const isBingo = useBingoStore((state) => state.isBingo);
     const { toast } = useToast()
 
-
-    
     useEffect(() => {
-        bingoCheck(data);
+        useBingoCheck(data);
     }, [data]);
 
    
@@ -27,7 +24,7 @@ export default function BingoCards() {
             toast({
                 title: "Bingo!",
                 description: "You have a bingo!",
-                variant: "default"
+                variant: "success"
             });
         }
     }, [isBingo])
@@ -35,13 +32,15 @@ export default function BingoCards() {
 
     if (isLoading) return <div>Loading...</div>;
 
-
-
     return (
         <>
-            {data.map((card: any) => (
-                <BingoCard card={card} key={card.id} />
-            ))}
+            <div className="grid grid-cols-4 gap-4 auto-rows-fr max-w-4xl">
+                {data?.map((card: TBingoCard) => (
+                    <div key={card.id} className="h-auto">
+                        <BingoCard card={card}  />
+                    </div>
+                ))}
+            </div>
         </>
     );
 }

@@ -1,6 +1,6 @@
 import { setIsBingo } from "~/zustand/stores/useBingoStore";
 
-export const bingoCheck = ( cards: any) => {
+export const useBingoCheck = ( cards: any) => {
     const bingoPatterns = [
                 [1, 2, 3, 4],
                 [5, 6, 7, 8],
