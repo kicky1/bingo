@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getBingoCards, putBingoCard } from "~/server/queries";
 
-export async function PUT(request: Request) {
+export async function POST(request: Request) {
     const { id, checked } = await request.json();
     await putBingoCard({ id, checked });
     return NextResponse.json({ success: true });
