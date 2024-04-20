@@ -7,6 +7,8 @@ import { useBingoCheck } from "~/hooks/useBingoCheck";
 import { useBingoStore } from "~/zustand/stores/useBingoStore";
 import { useToast } from "~/components/ui/use-toast"
 import { TBingoCard } from "~/types/bingo.type";
+import { useUser } from "@clerk/nextjs";
+
 
 export default function BingoCards() {
     const { data, isLoading } = useGetUsersChoice();
@@ -17,9 +19,13 @@ export default function BingoCards() {
         useBingoCheck(data);
     }, [data]);
 
+    const { isLoaded, isSignedIn, user } = useUser();
+
+    console.log("user", user);
+
+
    
     useEffect(() => {
-        console.log(isBingo)
         if (isBingo) {
             toast({
                 title: "Bingo!",
