@@ -6,8 +6,9 @@ import { getQueryClient } from "~/lib/query";
 import { Card } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
 import { TBingoCard } from "~/types/bingo.type";
+import { memo } from "react";
 
-export default function BingoCard({ card }: { card: TBingoCard }) {
+function BingoCard({ card }: { card: TBingoCard }) {
     const queryClient = getQueryClient()
 
     const mutation = useMutation({
@@ -31,3 +32,5 @@ export default function BingoCard({ card }: { card: TBingoCard }) {
         </>
     );
 }
+
+export default memo(BingoCard);
