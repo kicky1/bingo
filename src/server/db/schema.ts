@@ -34,3 +34,20 @@ export const bingoCards = createTable(
     nameIndex: index("name_idx").on(example.name),
   })
 );
+
+export const usersStats = createTable(
+  "userStats",
+  {
+    id: serial("id").primaryKey(),
+    userId: varchar("userId", { length: 256 }),
+    username: varchar("username", { length: 256 }),
+    bingoAmount: varchar("bingoAmount", { length: 256 }),
+    createdAt: timestamp("createdAt")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt"),
+  },
+  (example) => ({
+    usernameIndex: index("username_idx").on(example.username),
+  })
+);
