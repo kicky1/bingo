@@ -1,19 +1,24 @@
 "use server"
 
 import { db } from "~/server/db"
-import { bingoCards } from "./db/schema";
-import { NotNull, eq, asc } from "drizzle-orm";
-import { PgSerialBuilderInitial } from "drizzle-orm/pg-core";
+import { profileInfo } from "./db/schema";
+import { eq, asc } from "drizzle-orm";
 
-export async function putBingoCard({ id, checked }: { id:  NotNull<PgSerialBuilderInitial<"id">>, checked: boolean }) {
-    const data = await db.update(bingoCards)
-    .set({ checked })
-    .where(eq(bingoCards.id, id as any));
+export async function postBingoCard({ bingoCards, user}: { bingoCards: string[], user: any}) {
+    const data = await db.update(profileInfo)
+    .set({ bingoCards })
+    .where(eq(profileInfo.clerkId, user.id as any));
     return data
 }
 
-export async function getBingoCards() {
-    const data = (await db.query.bingoCards.findMany({ orderBy: [asc(bingoCards.id)]}
-    ));
-    return data
+export async function getBingoCards(clerkId: string) {
+    const data = await db.query.profileInfo.findMany(
+        {
+            where: (profileInfo, { eq }) => eq(profileInfo.clerkId, clerkId),
+            orderBy: [asc(profileInfo.id)]
+        }
+    )
+    const bingoCards = data.map(profileInfo => profileInfo.bingoCards);
+
+    return bingoCards
 }
