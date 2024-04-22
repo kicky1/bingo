@@ -1,22 +1,32 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import api from "~/utils/api";
 import { getQueryClient } from "~/lib/query";
 import { Card } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
 import { TBingoCard } from "~/types/bingo.type";
 import { memo } from "react";
+import { postBingoCards } from "~/actions/post-bingocards";
+import { useUser } from "@clerk/nextjs";
 
 function BingoCard({ card }: { card: TBingoCard }) {
+    const { user } = useUser();
     const queryClient = getQueryClient()
 
     const mutation = useMutation({
         mutationFn: (card: TBingoCard) => {
-          return api.post('/bingoCards', JSON.stringify({ id: card.id, checked: !card.checked }))
+            
+            const [...bingoCardsData] = queryClient.getQueryData(['bingocards-data']) as TBingoCard[];
+            const updatedBingoCardsData = bingoCardsData.map((item) => {
+                if (item.name === card.name) {
+                    return { ...item, checked: !item.checked };
+                }
+                return item; 
+            });  
+            return postBingoCards({updatedBingoCardsData, user})
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['bingocards-data']})
+            setTimeout(() => queryClient.invalidateQueries({queryKey: ['bingocards-data']}), 100)
         }
     })
   
