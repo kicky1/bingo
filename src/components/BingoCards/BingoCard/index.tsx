@@ -14,19 +14,29 @@ function BingoCard({ card }: { card: TBingoCard }) {
     const queryClient = getQueryClient()
 
     const mutation = useMutation({
-        mutationFn: (card: TBingoCard) => {
+        mutationFn: async (card: TBingoCard) => {
+            await queryClient.cancelQueries({ queryKey: ['bingocards-data'] });
+
+            const previousBingoCardsData = queryClient.getQueryData(['bingocards-data']) as TBingoCard[];
             
-            const [...bingoCardsData] = queryClient.getQueryData(['bingocards-data']) as TBingoCard[];
-            const updatedBingoCardsData = bingoCardsData.map((item) => {
+            const updatedBingoCardsData = previousBingoCardsData.map((item) => {
                 if (item.name === card.name) {
                     return { ...item, checked: !item.checked };
                 }
                 return item; 
             });  
-            return postBingoCards({updatedBingoCardsData, user})
+
+            queryClient.setQueryData(['bingocards-data'], (old: any) => updatedBingoCardsData);
+            postBingoCards({updatedBingoCardsData, user})
+            return {updatedBingoCardsData}
         },
-        onSuccess: () => {
-            setTimeout(() => queryClient.invalidateQueries({queryKey: ['bingocards-data']}), 100)
+        onError: (error: Error, variables: TBingoCard, context: { previousBingoCardsData: TBingoCard[] } | undefined) => {
+            if (context) {
+                queryClient.setQueryData(['bingocards-data'], context.previousBingoCardsData);
+            }
+        },
+        onSettled: () => {
+            setTimeout(() => queryClient.invalidateQueries({queryKey: ['bingocards-data']}), 500)
         }
     })
   
