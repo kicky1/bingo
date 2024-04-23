@@ -1,0 +1,26 @@
+.cardgrid {
+    @apply
+    h-fit 
+    w-fit 
+    p-4 
+    mt-8 
+    border-2 
+    border-slate-200 
+    bg-slate-50 
+    rounded 
+    m-4
+    grid 
+    grid-cols-4 
+    gap-4 
+    auto-rows-fr 
+    max-w-4xl
+}
+
+.container {
+    @apply
+    h-fit 
+    w-fit 
+    p-4 
+    mt-32 
+    text-center
+}

@@ -7,12 +7,33 @@ import { useBingoCheck } from "~/hooks/useBingoCheck";
 import { useBingoStore } from "~/zustand/stores/useBingoStore";
 import { useToast } from "~/components/ui/use-toast"
 import { TBingoCard } from "~/types/bingo.type";
+import styles from './index.module.css';
+import { Button } from "../ui/button";
+import { useUser } from "@clerk/nextjs";
+import { useMutation } from "@tanstack/react-query";
+import { getQueryClient } from "~/lib/query";
+import { postAddUser } from "~/actions/post-user";
+import { useGetUsers } from "~/actions/get-user";
 
 export default function BingoCards(clerkId: any) {
     const { data, isLoading } = useGetUsersChoice(clerkId);
+    const { user } = useUser();
+    const queryClient = getQueryClient();
     
     const isBingo = useBingoStore((state) => state.isBingo);
     const { toast } = useToast()
+
+    const mutation = useMutation({
+        mutationFn: async () => {
+            console.log(user)
+            return postAddUser({user})
+        },
+        onSuccess: () => {
+           setTimeout(() => {
+            queryClient.invalidateQueries({queryKey: ['bingocards-data']})
+           },500)
+        }
+    })
 
     useEffect(() => {
         useBingoCheck(data);
@@ -29,11 +50,23 @@ export default function BingoCards(clerkId: any) {
     }, [isBingo])
 
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <div className={styles.container}>Loading...</div>;
+
+    if (!data) return (
+        <>
+            <div className={styles.container}>
+                <p className="text-3xl font-medium">Witaj nowy kosowniku!</p>
+                <p className="text-xl font-light text-slate-400">Aby rozpocząć rozgrywkę naciśnij na przycisk i wygeneruj bingo</p>
+                <Button className="mt-6" onClick={() => mutation.mutate()}>Generuj</Button>    
+            </div>
+        </>
+    )
+
+    console.log(data)
 
     return (
         <>
-            <div className="grid grid-cols-4 gap-4 auto-rows-fr max-w-4xl">
+            <div className={styles.cardgrid}>
                 {data?.map((card: TBingoCard) => (
                     <div key={card.id} className="h-auto">
                         <BingoCard card={card}  />

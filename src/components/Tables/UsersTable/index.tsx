@@ -1,3 +1,5 @@
+import { useGetUsers } from "~/actions/get-user"
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
     Table,
     TableBody,
@@ -7,35 +9,12 @@ import {
     TableRow,
   } from "~/components/ui/table"
   
-  const invoices = [
-    {
-        avatar: "1",
-        username: "Kicky",
-        bingoAmount: "2",
-    },
-    {
-        avatar: "2",
-        username: "Micky",
-        bingoAmount: "1",
-    },
-    {
-        avatar: "3",
-        username: "Dicky",
-        bingoAmount: "3",
-    },
-    {
-        avatar: "4",
-        username: "Ricky",
-        bingoAmount: "4",
-    },
-    {
-        avatar: "5",
-        username: "Nicky",
-        bingoAmount: "5",
-    },
-  ]
-  
   export function UsersTable() {
+
+    const { data, isLoading } = useGetUsers()
+
+    if (isLoading) return <>Loading...</>;
+
     return (
       <Table>
         <TableHeader>
@@ -43,14 +22,21 @@ import {
             <TableHead></TableHead>
             <TableHead>Nazwa użytkownika</TableHead>
             <TableHead>Ilość bingo</TableHead>
+            <TableHead>Streak</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.username}>
-                <TableHead>{invoice.avatar}</TableHead>
-                <TableCell className="font-medium">{invoice.username}</TableCell>
-                <TableCell>{invoice.bingoAmount}</TableCell>
+          {data?.map((user) => (
+            <TableRow key={user.id}>
+                <TableHead>
+                  <Avatar>
+                    <AvatarImage src={user.avatar} />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </TableHead>
+                <TableCell className="font-medium">{user.username}</TableCell>
+                <TableCell>{user.bingoAmount}</TableCell>
+                <TableCell>{user.wins}</TableCell>
             </TableRow>
           ))}
         </TableBody>
