@@ -13,7 +13,6 @@ import { useUser } from "@clerk/nextjs";
 import { useMutation } from "@tanstack/react-query";
 import { getQueryClient } from "~/lib/query";
 import { postAddUser } from "~/actions/post-user";
-import { useGetUsers } from "~/actions/get-user";
 
 export default function BingoCards(clerkId: any) {
     const { data, isLoading } = useGetUsersChoice(clerkId);
@@ -25,7 +24,6 @@ export default function BingoCards(clerkId: any) {
 
     const mutation = useMutation({
         mutationFn: async () => {
-            console.log(user)
             return postAddUser({user})
         },
         onSuccess: () => {
@@ -35,11 +33,13 @@ export default function BingoCards(clerkId: any) {
         }
     })
 
+
     useEffect(() => {
         useBingoCheck(data);
     }, [data]);
     
     useEffect(() => {
+       
         if (isBingo) {
             toast({
                 title: "Bingo!",
@@ -61,8 +61,6 @@ export default function BingoCards(clerkId: any) {
             </div>
         </>
     )
-
-    console.log(data)
 
     return (
         <>

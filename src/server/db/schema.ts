@@ -14,7 +14,6 @@ export const profileInfo = createTable('profile_info', {
   username: varchar("username", { length: 256 }),
   avatar: varchar("avatar", { length: 256 }),
   clerkId: varchar('clerk_id', { length: 256 }),
-  bingoAmount: integer('bingo_amount').default(0),
   bingoCards: jsonb('bingo_cards').default(
     [
       {

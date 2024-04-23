@@ -35,8 +35,7 @@ import {
                   </Avatar>
                 </TableHead>
                 <TableCell className="font-medium">{user.username}</TableCell>
-                <TableCell>{user.bingoAmount}</TableCell>
-                <TableCell>{user.wins}</TableCell>
+                <TableCell>{user.wins.length}</TableCell>
             </TableRow>
           ))}
         </TableBody>
