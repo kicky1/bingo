@@ -1,4 +1,4 @@
-import { useGetUsers } from "~/actions/get-user"
+import { useGetUsers } from "~/actions/get-users"
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
     Table,
@@ -7,7 +7,8 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-  } from "~/components/ui/table"
+  } from "~/components/ui/table";
+import { useCountStreak } from "~/zustand/stores/useCountStreak";
   
   export function UsersTable() {
 
@@ -36,6 +37,7 @@ import {
                 </TableHead>
                 <TableCell className="font-medium">{user.username}</TableCell>
                 <TableCell>{user.wins.length}</TableCell>
+                <TableHead>{useCountStreak(user.wins)}</TableHead>
             </TableRow>
           ))}
         </TableBody>

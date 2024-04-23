@@ -1,7 +1,19 @@
+export type TUser = {
+   id: number;
+   clerkId: string;
+   bingoCards: TBingoCard[];
+   username: string;
+   avatar: string;
+   wins: TWinsArray[];
+}
+
 export type TBingoCard = {
-   checked: boolean;
-   createdAt: string;
    id: number;
    name: string;
-   updatedAt?: string; 
+   checked: boolean;
+}
+
+export type TWinsArray = {
+   win: string;
+   date: string;
 }

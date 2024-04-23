@@ -3,14 +3,14 @@ import { TBingoCard } from "~/types/bingo.type"
 import api from "~/utils/api"
 
 
-const getBingoCards = async (clerkId: any): Promise<TBingoCard[]> => {
-  const { data } = await api.get(`/bingoCards/`, { params: { clerkId } });
+const getBingoCards = async (clerkId: string): Promise<TBingoCard[]> => {
+  const { data } = await api.get(`/bingocards/`, { params: { clerkId } });
     return data[0]
   }
 
-export const useGetUsersChoice = (clerkId: any) => {
+export const useGetBingoCards = (clerkId: string) => {
   return useQuery({
     queryKey: ['bingocards-data'],
-    queryFn: () => getBingoCards(clerkId.clerkId),
+    queryFn: () => getBingoCards(clerkId),
   })
 }
