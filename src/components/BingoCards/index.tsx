@@ -1,6 +1,6 @@
 "use client"
 
-import { useGetUsersChoice } from "~/actions/get-bingocards";
+import { useGetBingoCards } from "~/actions/get-bingocards";
 import BingoCard from "./BingoCard";
 import { useEffect } from "react";
 import { useBingoCheck } from "~/hooks/useBingoCheck";
@@ -15,13 +15,12 @@ import { getQueryClient } from "~/lib/query";
 import { postAddUser } from "~/actions/post-user";
 
 export default function BingoCards(clerkId: any) {
-    const { data, isLoading } = useGetUsersChoice(clerkId);
+    const { toast } = useToast()
+    const { data, isLoading } = useGetBingoCards(clerkId.clerkId);
     const { user } = useUser();
     const queryClient = getQueryClient();
-    
     const isBingo = useBingoStore((state) => state.isBingo);
-    const { toast } = useToast()
-
+   
     const mutation = useMutation({
         mutationFn: async () => {
             return postAddUser({user})
@@ -33,13 +32,11 @@ export default function BingoCards(clerkId: any) {
         }
     })
 
-
     useEffect(() => {
         useBingoCheck(data);
     }, [data]);
     
     useEffect(() => {
-       
         if (isBingo) {
             toast({
                 title: "Bingo!",
