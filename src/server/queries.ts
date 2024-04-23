@@ -29,6 +29,16 @@ export async function getBingoCards(clerkId: string) {
     return bingoCards
 }
 
+export async function getUser(clerkId: any) {
+    const data = await db.query.profileInfo.findMany(
+        {
+            where: (profileInfo, { eq }) => eq(profileInfo.clerkId, clerkId),
+            orderBy: [asc(profileInfo.id)]
+        }
+    )
+    return data[0]
+}
+
 export async function getUsers() {
     const data = await db.query.profileInfo.findMany(
         {

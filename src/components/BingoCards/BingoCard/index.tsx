@@ -14,13 +14,15 @@ import styles from './index.module.css';
 function BingoCard({ card }: { card: TBingoCard }) {
     const { user } = useUser();
     const queryClient = getQueryClient()
+    
 
     const mutation = useMutation({
         mutationFn: async (card: TBingoCard) => {
             await queryClient.cancelQueries({ queryKey: ['bingocards-data'] });
 
             const previousBingoCardsData = queryClient.getQueryData(['bingocards-data']) as TBingoCard[];
-            
+
+
             const updatedBingoCardsData = previousBingoCardsData.map((item) => {
                 if (item.name === card.name) {
                     return { ...item, checked: !item.checked };
@@ -29,6 +31,7 @@ function BingoCard({ card }: { card: TBingoCard }) {
             });  
 
             queryClient.setQueryData(['bingocards-data'], (old: any) => updatedBingoCardsData);
+        
             postBingoCards({updatedBingoCardsData, user})
             return {updatedBingoCardsData}
         },
