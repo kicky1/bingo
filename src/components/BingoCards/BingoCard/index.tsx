@@ -9,6 +9,8 @@ import { memo } from "react";
 import { postBingoCards } from "~/actions/post-bingocards";
 import { useUser } from "@clerk/nextjs";
 
+import styles from './index.module.css';
+
 function BingoCard({ card }: { card: TBingoCard }) {
     const { user } = useUser();
     const queryClient = getQueryClient()
@@ -45,7 +47,7 @@ function BingoCard({ card }: { card: TBingoCard }) {
             <Card
                 onClick={() => mutation.mutate(card)}  
                 key={card?.id}
-                className={cn(card?.checked ? 'bg-green-300 border-green-600 hover:bg-green-700 hover:text-white' : 'bg-white hover:bg-slate-200', " h-full flex items-center justify-center border-2  p-4 break-words  cursor-pointer")}
+                className={cn(card?.checked ? styles.greencard : styles.whitecard , styles.card)}
             >
                 <p className="text-center">{card?.name}</p>
             </Card>
