@@ -13,3 +13,4 @@ export async function GET(request: Request) {
     const data = await getBingoCards(clerkId as string);
     return NextResponse.json(data);
 }
+
