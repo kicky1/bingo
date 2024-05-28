@@ -7,5 +7,5 @@ type Props = {
 }
 
 export const postBingoCards = async ({updatedBingoCardsData, user}: Props) => {
-    api.post('/bingocards', JSON.stringify({ bingoCards: updatedBingoCardsData, user: user}))
+    api.post('/cards', JSON.stringify({ bingoCards: updatedBingoCardsData, user: user}))
   }

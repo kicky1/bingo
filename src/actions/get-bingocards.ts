@@ -4,7 +4,7 @@ import api from "~/utils/api"
 
 
 const getBingoCards = async (clerkId: string): Promise<TBingoCard[]> => {
-  const { data } = await api.get(`/test`, { params: { clerkId } });
+  const { data } = await api.get(`/cards`, { params: { clerkId } });
     return data[0]
   }
 
