@@ -10,7 +10,8 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
     const {searchParams} = new URL(request.url);
     const clerkId = searchParams.get("clerkId");
-    const data = await getBingoCards(clerkId as string);
-    return NextResponse.json(data);
+    // const data = await getBingoCards(clerkId as string);
+
+    return NextResponse.json(clerkId);
 }
 
