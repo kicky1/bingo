@@ -8,7 +8,8 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-    const clerkId = 'user_2h74BFFngVGb3GT2ZwVs3Vr7xM5';
-    const data = await getBingoCards(clerkId);
+    const {searchParams} = new URL(request.url);
+    const clerkId = searchParams.get("clerkId");
+    const data = await getBingoCards(clerkId as string);
     return NextResponse.json(data);
 }
