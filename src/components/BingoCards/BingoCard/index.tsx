@@ -9,52 +9,79 @@ import { memo } from "react";
 import { postBingoCards } from "~/actions/post-bingocards";
 import { useUser } from "@clerk/nextjs";
 
-import styles from './index.module.css';
+import styles from "./index.module.css";
+import { useBingoStore } from "~/zustand/stores/useBingoStore";
 
 function BingoCard({ card }: { card: TBingoCard }) {
-    const { user } = useUser();
-    const queryClient = getQueryClient()
-    
-    const prepareUpdatedBingoCardsData = () => {
-        const previousBingoCardsData = queryClient.getQueryData(['bingocards-data']) as TBingoCard[];
-        const updatedBingoCardsData = previousBingoCardsData.map((item) => {
-            if (item.name === card.name) {
-                return { ...item, checked: !item.checked };
-            }
-            return item; 
-        });  
-        return updatedBingoCardsData;
-    }
+  const { user } = useUser();
+  const queryClient = getQueryClient();
+  const isWin = useBingoStore((state) => state.isWin);
 
-    const mutation = useMutation({
-        mutationFn: async (card: TBingoCard) => {
-            await queryClient.cancelQueries({ queryKey: ['bingocards-data'] });
-            const updatedBingoCardsData = prepareUpdatedBingoCardsData();
-            queryClient.setQueryData(['bingocards-data'], (old: any) => updatedBingoCardsData);
-            postBingoCards({updatedBingoCardsData, user})
-            return {updatedBingoCardsData}
-        },
-        onError: (error: Error, variables: TBingoCard, context: { previousBingoCardsData: TBingoCard[] } | undefined) => {
-            if (context) {
-                queryClient.setQueryData(['bingocards-data'], context.previousBingoCardsData);
-            }
-        },
-        onSettled: () => {
-            setTimeout(() => queryClient.invalidateQueries({queryKey: ['bingocards-data']}), 500)
+  const prepareUpdatedBingoCardsData = () => {
+    const previousBingoCardsData = queryClient.getQueryData([
+      "bingocards-data",
+    ]) as TBingoCard[];
+    const updatedBingoCardsData = previousBingoCardsData.map((item) => {
+      if (item.name === card.name) {
+        return { ...item, checked: !item.checked };
+      }
+      return item;
+    });
+    return updatedBingoCardsData;
+  };
+
+  const mutation = useMutation({
+    mutationFn: async (card: TBingoCard) => {
+      await queryClient.cancelQueries({ queryKey: ["bingocards-data"] });
+      const updatedBingoCardsData = prepareUpdatedBingoCardsData();
+      queryClient.setQueryData(
+        ["bingocards-data"],
+        (old: any) => updatedBingoCardsData,
+      );
+      postBingoCards({ updatedBingoCardsData, user });
+      return { updatedBingoCardsData };
+    },
+    onError: (
+      error: Error,
+      variables: TBingoCard,
+      context: { previousBingoCardsData: TBingoCard[] } | undefined,
+    ) => {
+      if (context) {
+        queryClient.setQueryData(
+          ["bingocards-data"],
+          context.previousBingoCardsData,
+        );
+      }
+    },
+    onSettled: () => {
+      setTimeout(
+        () => queryClient.invalidateQueries({ queryKey: ["bingocards-data"] }),
+        500,
+      );
+    },
+  });
+
+  return (
+    <>
+      <Card
+        onClick={() => (isWin ? null : mutation.mutate(card))}
+        key={card?.id}
+        className={
+          isWin
+            ? cn(
+                card?.checked ? styles.greencard : styles.whitecard,
+                styles.disabledcard,
+              )
+            : cn(
+                card?.checked ? styles.greencard : styles.whitecard,
+                styles.card,
+              )
         }
-    })
-  
-    return (
-        <>
-            <Card
-                onClick={() => mutation.mutate(card)}  
-                key={card?.id}
-                className={cn(card?.checked ? styles.greencard : styles.whitecard , styles.card)}
-            >
-                <p className="text-center">{card?.name}</p>
-            </Card>
-        </>
-    );
+      >
+        <p className="text-center">{card?.name}</p>
+      </Card>
+    </>
+  );
 }
 
 export default memo(BingoCard);

@@ -1,21 +1,21 @@
-import Axios from 'axios'
+import Axios from "axios";
 
 const api = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_KEY,
   headers: {
-    'Content-Type': 'application/json',
-    accept: 'application/json',
+    "Content-Type": "application/json",
+    accept: "application/json",
   },
-})
+});
 
 api.interceptors.response.use(
   function (response) {
-    return response
+    return response;
   },
 
   function (error) {
-    console.error('Error', error)
-  }
-)
+    console.error("Error", error);
+  },
+);
 
-export default api
+export default api;

@@ -1,26 +1,24 @@
 .cardgrid {
-    @apply
+  @apply m-4 
+    mt-8 
+    grid 
     h-fit 
     w-fit 
-    p-4 
-    mt-8 
+    max-w-4xl 
+    auto-rows-fr 
+    grid-cols-4 
+    gap-4
+    rounded 
     border-2 
     border-slate-200 
     bg-slate-50 
-    rounded 
-    m-4
-    grid 
-    grid-cols-4 
-    gap-4 
-    auto-rows-fr 
-    max-w-4xl
+    p-4;
 }
 
 .container {
-    @apply
+  @apply mt-32 
     h-fit 
     w-fit 
     p-4 
-    mt-32 
-    text-center
+    text-center;
 }

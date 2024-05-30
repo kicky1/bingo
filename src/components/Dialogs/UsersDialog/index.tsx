@@ -1,7 +1,7 @@
-import { Copy } from "lucide-react"
-import { UsersTable } from "~/components/Tables/UsersTable"
+import { Copy } from "lucide-react";
+import { UsersTable } from "~/components/Tables/UsersTable";
 
-import { Button } from "~/components/ui/button"
+import { Button } from "~/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "~/components/ui/dialog"
+} from "~/components/ui/dialog";
 
 export function UsersDialog() {
   return (
@@ -40,5 +40,5 @@ export function UsersDialog() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
