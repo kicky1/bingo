@@ -74,7 +74,6 @@ export default function BingoCards(clerkId: any) {
 
   useEffect(() => {
     if (isBingo) {
-      setIsWin(true);
       toast({
         title: "Bingo!",
         description: "You have a bingo!",
