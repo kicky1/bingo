@@ -1,82 +1,82 @@
 export const defaultBingoCards = [
   {
     id: 1,
-    name: "Tirem",
+    name: "red",
     checked: false,
   },
   {
     id: 2,
-    name: "Dzięki za dzisiaj",
+    name: "green",
     checked: false,
   },
   {
     id: 3,
-    name: "Daniel wejdzie na disc",
+    name: "blue",
     checked: false,
   },
   {
     id: 4,
-    name: "FOMO",
+    name: "pink",
     checked: false,
   },
   {
     id: 5,
-    name: "ClassCat",
+    name: "black",
     checked: false,
   },
   {
     id: 6,
-    name: "Pisanie endpointów",
+    name: "white",
     checked: false,
   },
   {
     id: 7,
-    name: "Jolie Jolie",
+    name: "slate",
     checked: false,
   },
   {
     id: 8,
-    name: "Stylowanie Buttona",
+    name: "purple",
     checked: false,
   },
   {
     id: 9,
-    name: "Wysłane CV",
+    name: "grey",
     checked: false,
   },
   {
     id: 10,
-    name: "TFT",
+    name: "yellow",
     checked: false,
   },
   {
     id: 11,
-    name: "Stop Cham",
+    name: "orange",
     checked: false,
   },
   {
     id: 12,
-    name: "[Object object]",
+    name: "gold",
     checked: false,
   },
   {
     id: 13,
-    name: "Loldle",
+    name: "silver",
     checked: false,
   },
   {
     id: 14,
-    name: "Pokedle",
+    name: "aqua",
     checked: false,
   },
   {
     id: 15,
-    name: "Kręcimy",
+    name: "brown",
     checked: false,
   },
   {
     id: 16,
-    name: "GeoGuessr",
+    name: "teal",
     checked: false,
   },
 ];

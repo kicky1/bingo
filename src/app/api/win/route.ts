@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { postBingoCard, postWin } from "~/server/queries";
+import { postWin } from "~/server/queries";
 
 export async function POST(request: Request) {
   const { date, user } = await request.json();

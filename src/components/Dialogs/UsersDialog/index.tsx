@@ -17,13 +17,13 @@ export function UsersDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Ranking bingowców</Button>
+        <Button variant="outline">Players ranking</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Tabela</DialogTitle>
+          <DialogTitle>Table</DialogTitle>
           <DialogDescription>
-            Top użytkoników biorących udział w bingo
+            Top players participating in bingo
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center space-x-2">
@@ -34,7 +34,7 @@ export function UsersDialog() {
         <DialogFooter className="justify-end">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
-              Zamknij
+              Close
             </Button>
           </DialogClose>
         </DialogFooter>

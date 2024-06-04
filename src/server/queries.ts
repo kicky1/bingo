@@ -19,13 +19,11 @@ export async function postBingoCard({
 }
 
 export async function postAddUser({ user }: { user: any }) {
-  const data = await db
-    .insert(profileInfo)
-    .values({
-      clerkId: user.id,
-      username: user.username,
-      avatar: user.imageUrl,
-    });
+  const data = await db.insert(profileInfo).values({
+    clerkId: user.id,
+    username: user.username,
+    avatar: user.imageUrl,
+  });
   return data;
 }
 

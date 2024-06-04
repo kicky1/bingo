@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     <nav className="fint-semibold flex w-full items-center justify-between p-4 text-xl ">
-      <div>KITH Bingo</div>
+      <div>Bingo</div>
       <div className="flex items-center space-x-4">
         <Badge className="h-8 bg-red-500 text-sm font-normal hover:bg-red-800">
           {`Streak: ${userData ? useCountStreak(userData?.wins) : 0}`}{" "}

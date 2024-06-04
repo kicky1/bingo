@@ -20,8 +20,8 @@ export function UsersTable() {
       <TableHeader>
         <TableRow>
           <TableHead></TableHead>
-          <TableHead>Nazwa użytkownika</TableHead>
-          <TableHead>Ilość bingo</TableHead>
+          <TableHead>Username</TableHead>
+          <TableHead>Amout of bingos</TableHead>
           <TableHead>Streak</TableHead>
         </TableRow>
       </TableHeader>

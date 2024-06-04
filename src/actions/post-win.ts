@@ -1,5 +1,5 @@
 import { useGetDate } from "~/hooks/useGetDate";
-import { TBingoCard } from "~/types/bingo.type";
+import { getQueryClient } from "~/lib/query";
 import api from "~/utils/api";
 
 type Props = {
@@ -8,5 +8,8 @@ type Props = {
 
 export const postWin = async ({ user }: Props) => {
   const date = useGetDate();
-  await api.post("/win", JSON.stringify({ date: date, user: user }));
+  const queryClient = getQueryClient();
+  await api.post("/win", JSON.stringify({ date: date, user: user })).then((res) => {
+    queryClient.invalidateQueries({ queryKey: ["user-data"] });
+  });
 };
