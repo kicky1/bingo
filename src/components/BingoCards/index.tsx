@@ -119,7 +119,7 @@ export default function BingoCards(clerkId: any) {
       </div>
       {isWin && (
         <div className="h-fit w-fit p-4 text-center">
-          <Button onClick={captureScreenshot}>Pobierz link</Button>
+          <Button onClick={captureScreenshot}>Download</Button>
         </div>
       )}
     </>

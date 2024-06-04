@@ -1,6 +1,6 @@
 import { clerkClient, useUser } from "@clerk/nextjs";
 import { postWin } from "~/actions/post-win";
-import { setIsBingo } from "~/zustand/stores/useBingoStore";
+import { setIsBingo, setIsWin } from "~/zustand/stores/useBingoStore";
 
 export const useBingoCheck = async (cards: any, user: any) => {
   const bingoPatterns = [
@@ -24,6 +24,7 @@ export const useBingoCheck = async (cards: any, user: any) => {
 
   if (isBingoPattern) {
     postWin({ user: user });
+    setIsWin(true);
   }
 
   setIsBingo(isBingoPattern);
