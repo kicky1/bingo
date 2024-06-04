@@ -1,13 +1,13 @@
 .cardgrid {
-  @apply m-4 
-    mt-8 
-    grid 
-    h-fit 
-    w-fit 
-    max-w-4xl 
+  @apply /* 
+    Adjust 
+    this 
+ 
+    value as needed */ m-4 mt-8 grid max-h-96
+
     auto-rows-fr 
     grid-cols-4 
-    gap-4
+    gap-4 
     rounded 
     border-2 
     border-slate-200 
